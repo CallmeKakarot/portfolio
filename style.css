@@ -443,8 +443,9 @@ img { max-width: 100%; display: block; }
   z-index: 3;
 }
 .badge-1 { top: 0; left: -20px; animation: float 3s ease-in-out infinite; }
-.badge-2 { bottom: 20px; right: -30px; animation: float 3s ease-in-out 1s infinite; }
-.badge-3 { top: 50%; right: -40px; animation: float 3s ease-in-out 2s infinite; }
+.badge-2 { bottom: 40px; right: -70px; animation: float 3s ease-in-out 1s infinite; }
+.badge-3 { top: 40%; right: -70px; animation: float 3s ease-in-out 2s infinite; }
+.badge-4 { bottom: -20px; left: -20px; animation: float 3s ease-in-out 1.5s infinite; }
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 
 .scroll-indicator {
@@ -911,6 +912,8 @@ img { max-width: 100%; display: block; }
   .badge-1 { top: -10px; left: 50%; transform: translateX(-80%); }
   .badge-2 { bottom: -10px; right: 50%; transform: translateX(60%); }
   .badge-3 { top: 50%; right: -10px; transform: translateY(-50%); }
+  .badge-4 { bottom: -10px; left: 50%; transform: translateX(-20%); }
+  
   .hero-intro { margin: 0 auto 2rem; }
   .hero-cta { justify-content: center; }
   .hero-stats { justify-content: center; }
