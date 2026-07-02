@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/contact")
-@CrossOrigin(origins = "https://www.sushil-poudel.com.np")
+@CrossOrigin(origins = {"https://www.sushil-poudel.com.np","https://sushil-poudel.com.np"})
 
 public class ContactController {
 
