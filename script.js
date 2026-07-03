@@ -322,8 +322,11 @@ contactForm.addEventListener('submit', async(e) => {
   }
 
   if (valid) {
-    const btn = contactForm.querySelector('button[type="submit"] span');
-    btn.textContent = 'Sending...';
+    const btn = contactForm.querySelector('button[type="submit"]');
+    const btnSpan= btn.querySelector('span');
+
+    btn.disabled=true;
+    btnSpan.textContent = 'Sending...';
 
     const data = {
       fullName: name,      // backend expects "fullName", frontend field is "name"
@@ -343,17 +346,20 @@ contactForm.addEventListener('submit', async(e) => {
 
       if (response.ok) {
         contactForm.reset();
-        btn.textContent = 'Send Message';
+        btnSpan.textContent = 'Send Message';
         const successMsg = document.getElementById('formSuccess');
         successMsg.classList.remove('hidden');
         setTimeout(() => successMsg.classList.add('hidden'), 4000);
       } else {
-        btn.textContent = 'Send Message';
+        btnSpan.textContent = 'Send Message';
         alert('Something went wrong. Please try again.');
       }
     } catch (error) {
-      btn.textContent = 'Send Message';
+      btnSpan.textContent = 'Send Message';
       alert('Could not connect to server. Please try again later.');
+    }
+    finally{
+      btn.disabled=false;
     }
   }
 });
