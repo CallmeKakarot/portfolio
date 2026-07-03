@@ -269,7 +269,7 @@ function clearError(fieldId) {
   document.getElementById(id).addEventListener('input', () => clearError(id));
 });
 
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async(e) => {
   e.preventDefault();
 
   const name    = document.getElementById('name').value.trim();
@@ -322,17 +322,39 @@ contactForm.addEventListener('submit', (e) => {
   }
 
   if (valid) {
-    // Simulate form submission (replace with actual API/emailjs call)
     const btn = contactForm.querySelector('button[type="submit"] span');
     btn.textContent = 'Sending...';
 
-    setTimeout(() => {
-      contactForm.reset();
+    const data = {
+      fullName: name,      // backend expects "fullName", frontend field is "name"
+      email:   email,
+      subject: subject,
+      message: message
+    };
+
+    try {
+      const response = await fetch('https://portfolio-production-7ed7.up.railway.app/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        contactForm.reset();
+        btn.textContent = 'Send Message';
+        const successMsg = document.getElementById('formSuccess');
+        successMsg.classList.remove('hidden');
+        setTimeout(() => successMsg.classList.add('hidden'), 4000);
+      } else {
+        btn.textContent = 'Send Message';
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (error) {
       btn.textContent = 'Send Message';
-      const successMsg = document.getElementById('formSuccess');
-      successMsg.classList.remove('hidden');
-      setTimeout(() => successMsg.classList.add('hidden'), 4000);
-    }, 1500);
+      alert('Could not connect to server. Please try again later.');
+    }
   }
 });
 
@@ -364,6 +386,7 @@ if (dotsEl) {
   setTimeout(() => clearInterval(dotsInterval), 2000);
 }
 
+
 /* ============================================================
    15. STAGGER REVEAL for grid children
    ============================================================ */
@@ -373,6 +396,7 @@ function addStaggerDelay(selector, delayStep = 80) {
     el.style.transitionDelay = `${i * delayStep}ms`;
   });
 }
+
 
 addStaggerDelay('.skill-card', 60);
 addStaggerDelay('.project-card', 100);
